@@ -11,12 +11,8 @@ module Puppet::Parser::Functions
     scope = self
     resource = scope.resource
 
-    # Travel four directories up to determine the size of the prefix to chop off
-    # This is a cheap and ugly hack, made worse by georgeb
-    sizeof_prefix = File.dirname(File.dirname(File.dirname(File.dirname(scope.environment.manifest)))).length + 1
-
     if scope.resource.file and scope.resource.line
-      "%s:%d" % [resource.file[sizeof_prefix..-1], resource.line]
+      "%s:%d" % [resource.file, resource.line]
     else
       "Unknown"
     end
